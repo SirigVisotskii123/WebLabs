@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="lib/bootstrap/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+    <link href="lib/bootstrap/dist/css/bootstrap.rtl.css" rel="stylesheet" />
+    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="lib/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
+    <header>
+
+        <!-- Панель навигации -->
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <!-- меню сайта -->
+            <div class="d-flex ms-0">
+                <a class="navbar-brand" href="#">WebLabs</a>
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="#">Лб 1 (Высоцкий 10333)</a>
+                    <a class="nav-item nav-link" href="#">Каталог</a>
+                    <a class="nav-item nav-link" href="#">Администрирование</a>
+                </div>
+            </div>
+                <!-- меню сайта - конец -->
+                <!-- Информация пользователя -->
+                   <div class="d-flex float-end collapse navbar-collapse justify-content-end">
+                        <a href="#" class="navbar-text" >
+                            00,0 руб <i class="fas fa-shopping-cart nav-color"></i> (0)
+                        </a>
+
+                        <div class="dropdown ms-4 nav-color">
+
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="images/dog.jpeg" width="50"
+                                     alt="User" class="rounded" />
+                            </button>
+
+                            <div class="dropdown-menu dropdown-menu-end"
+                                 aria-labelledby="dropdownMenuButton">
+                                <div class="dropdown-item-text">
+                                    <img src="images/dog.jpeg" width="50"
+                                         alt="User" class="rounded" />
+                                    vysotskiy@mail.ru
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Мои товары</a>
+                                <a class="dropdown-item" href="#">Log off</a>
+                            </div>
+                        </div>
+                   </div>
+           
+        </nav> <!-- Панель навигации - конец -->
+    </header><!-- header - конец -->
+
+    <main class="container">
+        <h1>Лабораторная работа 1</h1>
+        <h2>Список</h2>
+        <ol type="A" class="ms-1">
+            <li>элемент 1 списка</li>
+            <li>элемент 2 списка</li>
+        </ol>
+        <hr />
+        <h2>Форма</h2>
+
+        <form method="post">
+            <table style="width: 100%">
+                <colgroup>
+                    <col span="1" style="width: 13%;">
+                </colgroup>
+                <tr>
+                    <td> </td>
+                    <td>
+                        <div>
+                            <input name="check1" type="checkbox" id="scales"  />
+                            <label for="scales">Чек-бокс 1</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td> </td>
+                    <td>
+                        <div>
+                            <input name="check2" type="checkbox" id="scales2"  />
+                            <label for="scales2">Чек-бокс 2</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="d-flex">
+                            <div class="form-check">
+                                <input name="radio1" class="form-check-input" type="radio" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Радио-1
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input name="radio2" class="form-check-input" type="radio" id="flexRadioDefault2">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Радио-2
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input name="radio3" class="form-check-input" type="radio" id="flexRadioDefault3">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Радио-3
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Логин:</td>
+                    <td>
+                        <nav class="navbar navbar-light bg-light">
+                            <input name="login" id="log" class="form-control mr-sm-2" type="search" placeholder="Введите имя..." aria-label="Search">
+                        </nav>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Пароль:</td>
+                    <td>
+                        <nav class="navbar navbar-light bg-light">
+                            <input name="password" id="pass" class="form-control mr-sm-2" type="password" placeholder="Введите пароль..." aria-label="Search">
+                        </nav>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        
+
+
+
+    </main>
+    <footer class="fixed-bottom">
+        <div class="navbar navbar-dark navbar-expand-md bg-dark">
+            <div class="navbar-nav collapse navbar-collapse justify-content-end">
+                <a class="nav-item nav-link" href="http://www.facebook.com">
+                    <i class="fab fa-facebook-f fa-2x"></i>
+                </a>
+                <a class="nav-item nav-link" href="http://www.vk.com">
+                    <i class="fab fa-vk fa-2x"></i>
+                </a>
+                <a class="nav-item nav-link" href="http://www.twitter.com">
+                    <i class="fab fa-twitter fa-2x"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
