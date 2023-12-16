@@ -23,15 +23,41 @@
         <!-- Панель навигации -->
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <!-- меню сайта -->
-            <!-- меню сайта -->
-            <a class="navbar-brand" asp-action="Index" aspcontroller="Home">WebLabsV06</a>
-            <div class="navbar-nav">
-                @await Component.InvokeAsync("Menu")
+            <div class="d-flex ms-0">
+                <a class="navbar-brand" href="#">WebLabs</a>
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Лб 2 (Высоцкий 10333)</a>
+                    <a class="nav-item nav-link" asp-area="" asp-controller="Product" asp-action="Index">Каталог</a>
+                    <a class="nav-item nav-link" asp-area="Admin" asp-page="/Index">Администрирование</a>
+                </div>
             </div>
             <!-- меню сайта - конец -->
-            <!-- меню сайта - конец -->
             <!-- Информация пользователя -->
-            <partial name="_UserPartial" />
+            <div class="d-flex float-end collapse navbar-collapse justify-content-end">
+                <a asp-area="" asp-controller="Cart" asp-action="Index" class="navbar-text">
+                    00,0 руб <i class="fas fa-shopping-cart nav-color"></i> (0)
+                </a>
+
+                <div class="dropdown ms-4 nav-color">
+
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="images/dog.jpeg" width="50"
+                             alt="User" class="rounded" />
+                    </button>
+
+                    <div class="dropdown-menu dropdown-menu-end"
+                         aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-item-text">
+                            <img src="images/dog.jpeg" width="50"
+                                 alt="User" class="rounded" />
+                            vysotskiy@mail.ru
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="UserProducts">Мои товары</a>
+                        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout">Log off</a>
+                    </div>
+                </div>
+            </div>
 
         </nav> <!-- Панель навигации - конец -->
     </header><!-- header - конец -->
