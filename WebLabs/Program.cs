@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using WebLabs.Data;
+using WebLabs.DAL.Entities;
+using WebLabs.DAL.Data;
+using WebLabs.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,14 +11,39 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddControllersWithViews();
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationDbContext>();
+//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.User.RequireUniqueEmail = false;
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireDigit = false;
+})
+.AddRoles<IdentityRole>()
+   // .AddDefaultUI()
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
+
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationDbContext>();
+//builder.Services.AddControllersWithViews();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = $"/Identity/Account/Login";
+    options.LogoutPath = $"/Identity/Account/Logout";
+});
+
+//builder.Services.AddScoped<SignInManager<IdentityUser>, SignInManager<IdentityUser>>();
 
 var app = builder.Build();
 
@@ -42,6 +70,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
+app.MapRazorPages(); 
+await DbInitializer.SetupDb(app);
 
 app.Run();
