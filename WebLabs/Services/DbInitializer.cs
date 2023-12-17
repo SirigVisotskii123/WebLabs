@@ -10,13 +10,13 @@ namespace WebLabs.Services
         {
             using var scope = app.Services.CreateScope();
             var context = (ApplicationDbContext?)scope.ServiceProvider.GetService(typeof(ApplicationDbContext));
-            var userManager = (UserManager<IdentityUser>?)scope.ServiceProvider.GetService(typeof(UserManager<IdentityUser>));
+            var userManager = (UserManager<ApplicationUser>?)scope.ServiceProvider.GetService(typeof(UserManager<ApplicationUser>));
             var roleManager = (RoleManager<IdentityRole>?)scope.ServiceProvider.GetService(typeof(RoleManager<IdentityRole>));
 
             await Seed(context, userManager, roleManager);
 
         }
-        public static async Task Seed(ApplicationDbContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task Seed(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             // создать БД, если она еще не создана
             context.Database.EnsureCreated();
@@ -35,14 +35,14 @@ namespace WebLabs.Services
             if (!context.Users.Any())
             {
                 // создать пользователя user@mail.ru
-                var user = new IdentityUser
+                var user = new ApplicationUser
                 {
                     Email = "user@mail.ru",
                     UserName = "user@mail.ru"
                 };
                 await userManager.CreateAsync(user, "123456");
                 // создать пользователя admin@mail.ru
-                var admin = new IdentityUser
+                var admin = new ApplicationUser
                 {
                     Email = "admin@mail.ru",
                     UserName = "admin@mail.ru"

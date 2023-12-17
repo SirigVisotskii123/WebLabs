@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity;
 @using WebLabs.DAL.Entities;
-@inject SignInManager<IdentityUser> signInManager
+@inject SignInManager<ApplicationUser> signInManager
 
 <div class="d-flex float-end collapse navbar-collapse justify-content-end">
     @if (signInManager.IsSignedIn(User))
