@@ -10,14 +10,14 @@
     <div class="dropdown ms-4 nav-color">
 
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="images/dog.jpeg" width="50"
+            <img src="@Url.Action("GetAvatar","Image")" width="50"
                  alt="User" class="rounded" />
         </button>
 
         <div class="dropdown-menu dropdown-menu-end"
              aria-labelledby="dropdownMenuButton">
             <div class="dropdown-item-text">
-                <img src="images/dog.jpeg" width="50"
+                    <img src="@Url.Action("GetAvatar","Image")" width="50"
                      alt="User" class="rounded" />
                     @User.Identity.Name
             </div>
