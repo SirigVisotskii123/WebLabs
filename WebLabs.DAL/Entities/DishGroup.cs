@@ -13,6 +13,7 @@ namespace WebLabs.DAL.Entities
         /// <summary>
         /// Навигационное свойство 1-ко-многим
         /// </summary>
+        /// 
         public List<Dish> Dishes { get; set; }
     }
 }

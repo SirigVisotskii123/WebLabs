@@ -1,20 +1,39 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebLabs.DAL.Entities;
+using WebLabs.Models;
 
 namespace WebLabs.Controllers
 {
     public class ProductController : Controller
     {
-        List<Dish> _dishes;
+        public List<Dish> _dishes;
         List<DishGroup> _dishGroups;
+
+        int _pageSize;
+
         public ProductController()
         {
+            _pageSize = 3;
             SetupData();
         }
-        public IActionResult Index()
+        public IActionResult Index(int? group, int pageNo = 1)
         {
-            return View(_dishes);
+            var dishesFiltered = _dishes.Where(d => !group.HasValue || d.DishGroupId == group.Value);
+            // Поместить список групп во ViewData
+            ViewData["Groups"] = _dishGroups;
+            // Получить id текущей группы и поместить в TempData
+            ViewData["CurrentGroup"] = group ?? 0;
+            return View(ListViewModel<Dish>.GetModel(dishesFiltered, pageNo,_pageSize));
+            //var items = _dishes
+            //.Skip((pageNo - 1) * _pageSize)
+            //.Take(_pageSize)
+            //.ToList();
+            //return View(items);
         }
+        //public IActionResult Index()
+        //{
+        //    return View(_dishes);
+        //}
         /// <summary>
         /// Инициализация списков
         /// </summary>

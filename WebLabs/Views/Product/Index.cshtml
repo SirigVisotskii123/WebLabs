@@ -1,45 +1,45 @@
-﻿@model IEnumerable<Dish>
+﻿@model ListViewModel<Dish>
 
 @{
     ViewData["Title"] = "Menu";
+    var categories = ViewData["Groups"] as List<DishGroup>;
+    int currentGroup = (int)ViewData["CurrentGroup"];
+    var text = currentGroup != 0 ? categories.FirstOrDefault(g => g.DishGroupId == currentGroup).GroupName : "Все";
 }
 
 <div class="row">
-    <div class="card-deck">
-        @foreach (var item in Model)
-        {
-            <div class='card m-2 p-1 text-center col-4'>
-                <img src="~/Images/@item.Image"
-                     alt='NoImage'
-                     class="card-img-top" />
-                <div class="card-body">
-                    <h5 class="card-title">
-                        @item.DishName
-                    </h5>
-                    <p class="card-text">
-                        @item.Description
-                    </p>
-                    <div class="card-text">
-                        <h6>@item.Calories калорий</h6>
-                    </div>
-                    @{
-                        // Получение текущего адреса
-                        var request = ViewContext.HttpContext.Request;
-                        var returnUrl = request.Path +
-                        request.QueryString.ToUriComponent();
+    <div class="col-2">
+
+
+
+        <div class="dropdown mt-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-expanded="false"
+               asp-action="Index" asp-controller="Product"
+               aria-haspopup="true">
+                    @text
+            </button>
+            <div class="dropdown-menu"
+                 aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item"
+                   asp-action="Index"
+                   asp-controller="Product">Все</a>
+                    @foreach (var item in categories)
+                    {
+                    <a class="dropdown-item" asp-action="Index"
+                       asp-controller="Product"
+                       asp-route-group="@item.DishGroupId"
+                       asp-route-pageNo="1">@item.GroupName</a>
                     }
-                    <!--Разметка кнопки добавления в корзину-->
-                    <p class="mt-2">
-                        <a asp-action="Add"
-                           asp-controller="Cart"
-                           asp-route-id="@item.DishId"
-                           asp-route-returnUrl="@returnUrl"
-                           class="btn btn-primary">
-                            <i class="fa fa-shopping-cart"></i> В корзину
-                        </a>
-                    </p>
-                </div>
             </div>
-        }
+        </div>
+    </div>
+
+    <div class="col-10">
+    <div class="row">
+            @foreach (var item in Model)
+            {
+            <partial name="View1" model="@item" />
+            }
+    </div>
     </div>
 </div>
