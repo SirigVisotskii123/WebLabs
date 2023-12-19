@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Routing;
 namespace WebLabsV06.TagHelpers
 {
-    [HtmlTargetElement(tag: "imgg", Attributes = "img-action, img-controller")]
+    [HtmlTargetElement(tag: "img", Attributes = "img-action, img-controller")]
     public class ImageTagHelper : TagHelper
     {
         public string ImgAction { get; set; }

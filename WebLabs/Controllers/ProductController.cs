@@ -16,28 +16,38 @@ namespace WebLabs.Controllers
             _pageSize = 3;
             SetupData();
         }
-        public IActionResult Index(int? group, int pageNo =1)
+		[Route("Catalog")]
+		[Route("Catalog/Page_{pageNo}")]
+		public IActionResult Index(int? group, int pageNo =1)
         {
             var dishesFiltered = _dishes.Where(d => !group.HasValue || d.DishGroupId == group.Value);
             // Поместить список групп во ViewData
             ViewData["Groups"] = _dishGroups;
             // Получить id текущей группы и поместить в TempData
             ViewData["CurrentGroup"] = group ?? 0;
-            return View(ListViewModel<Dish>.GetModel(dishesFiltered, pageNo,_pageSize));
-            //var items = _dishes
-            //.Skip((pageNo - 1) * _pageSize)
-            //.Take(_pageSize)
-            //.ToList();
-            //return View(items);
-        }
-        //public IActionResult Index()
-        //{
-        //    return View(_dishes);
-        //}
-        /// <summary>
-        /// Инициализация списков
-        /// </summary>
-        private void SetupData()
+			return View(ListViewModel<Dish>.GetModel(dishesFiltered, pageNo,_pageSize));
+
+			/*var model = ListViewModel<Dish>.GetModel(dishesFiltered, pageNo,
+_pageSize);
+			if (Request.IsAxaxRequest())
+return PartialView("_listpartial", model);
+else
+return View(model);*/
+
+			//var items = _dishes
+			//.Skip((pageNo - 1) * _pageSize)
+			//.Take(_pageSize)
+			//.ToList();
+			//return View(items);
+		}
+		//public IActionResult Index()
+		//{
+		//    return View(_dishes);
+		//}
+		/// <summary>
+		/// Инициализация списков
+		/// </summary>
+		private void SetupData()
         {
             _dishGroups = new List<DishGroup>
             {
