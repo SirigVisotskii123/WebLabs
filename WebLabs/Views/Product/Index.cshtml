@@ -7,6 +7,7 @@
     var text = currentGroup != 0 ? categories.FirstOrDefault(g => g.DishGroupId == currentGroup).GroupName : "Все";
 }
 
+
 <div class="row">
     <div class="col-2">
 
@@ -35,11 +36,36 @@
     </div>
 
     <div class="col-10">
-    <div class="row">
-            @foreach (var item in Model)
+        <div class="row">
+                @foreach (var item in Model)
+                {
+                <partial name="_ListItemPartial" model="@item" />
+                }
+        </div>
+
+    </div>
+
+
+
+    <ul class="pagination pagination-lg">
+        @for (int i=1;i<=Model.TotalPages;i++)
+        {
+            @if (i == Model.CurrentPage)
             {
-            <partial name="View1" model="@item" />
+                <li class="page-item active" aria-current="page" asp-action="Index" asp-controller="Product">
+                    <span class="page-link">
+                        @i
+                        <span class="sr-only">(current)</span>
+                    </span>
+                </li>
             }
-    </div>
-    </div>
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="Product"
+                       asp-route-pageNo=@i>@i</a>
+                </li>
+            }
+            
+        }
+    </ul>
 </div>

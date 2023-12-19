@@ -16,7 +16,7 @@ namespace WebLabs.Controllers
             _pageSize = 3;
             SetupData();
         }
-        public IActionResult Index(int? group, int pageNo = 1)
+        public IActionResult Index(int? group, int pageNo =1)
         {
             var dishesFiltered = _dishes.Where(d => !group.HasValue || d.DishGroupId == group.Value);
             // Поместить список групп во ViewData
