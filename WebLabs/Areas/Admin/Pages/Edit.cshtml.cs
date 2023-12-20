@@ -13,16 +13,20 @@ namespace WebLabs.Areas.Admin.Pages
 {
     public class EditModel : PageModel
     {
+        private IWebHostEnvironment _environment;
         private readonly WebLabs.DAL.Data.ApplicationDbContext _context;
 
-        public EditModel(WebLabs.DAL.Data.ApplicationDbContext context)
+        public EditModel(WebLabs.DAL.Data.ApplicationDbContext context,
+            IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         [BindProperty]
         public Dish Dish { get; set; } = default!;
-
+        [BindProperty]
+        public IFormFile Image { get; set; }
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null || _context.Dish == null)
@@ -47,6 +51,18 @@ namespace WebLabs.Areas.Admin.Pages
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+            if (Image != null)
+            {
+                var fileName = $"{Dish.DishId}" +
+                Path.GetExtension(Image.FileName);
+                Dish.Image = fileName;
+                var path = Path.Combine(_environment.WebRootPath, "Images",
+                fileName);
+                using (var fStream = new FileStream(path, FileMode.Create))
+                {
+                    await Image.CopyToAsync(fStream);
+                }
             }
 
             _context.Attach(Dish).State = EntityState.Modified;
