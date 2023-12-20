@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebLabs.DAL.Data;
 using WebLabs.DAL.Entities;
 using WebLabs.Models;
 
@@ -6,21 +7,34 @@ namespace WebLabs.Controllers
 {
     public class ProductController : Controller
     {
+        ApplicationDbContext _context;
+
         public List<Dish> _dishes;
         List<DishGroup> _dishGroups;
 
         int _pageSize;
 
-        public ProductController()
-        {
-            _pageSize = 3;
-            SetupData();
-        }
+		public ProductController(ApplicationDbContext context)
+		{
+			_pageSize = 3;
+			_context = context;
+			SetupData();
+		}
+		//public ProductController()
+  //      {
+  //          _pageSize = 3;
+  //          SetupData();
+  //      }
 		[Route("Catalog")]
 		[Route("Catalog/Page_{pageNo}")]
 		public IActionResult Index(int? group, int pageNo =1)
         {
-            var dishesFiltered = _dishes.Where(d => !group.HasValue || d.DishGroupId == group.Value);
+            
+			var dishesFiltered = _context.Dish.Where(d => !group.HasValue || d.DishGroupId == group.Value);
+			// Поместить список групп во ViewData
+			//ViewData["Groups"] = _context.DishGroup;
+
+			//var dishesFiltered = _dishes.Where(d => !group.HasValue || d.DishGroupId == group.Value);
             // Поместить список групп во ViewData
             ViewData["Groups"] = _dishGroups;
             // Получить id текущей группы и поместить в TempData
