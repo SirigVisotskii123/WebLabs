@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebLabs", "WebLabs\WebLabs.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebLabs.DAL", "WebLabs.DAL\WebLabs.DAL.csproj", "{6F15F62C-3A79-42ED-BF93-79176FC1DCF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLabs.Tests", "WebLabs.Tests\WebLabs.Tests.csproj", "{7C6376AD-9267-4AA5-B4B9-83BD8EB8EAE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebLabs.Tests", "WebLabs.Tests\WebLabs.Tests.csproj", "{7C6376AD-9267-4AA5-B4B9-83BD8EB8EAE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

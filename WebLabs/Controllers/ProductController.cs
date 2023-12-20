@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WebLabs.DAL.Data;
 using WebLabs.DAL.Entities;
 using WebLabs.Models;
@@ -18,7 +19,7 @@ namespace WebLabs.Controllers
 		{
 			_pageSize = 3;
 			_context = context;
-			SetupData();
+			//SetupData();
 		}
 		//public ProductController()
   //      {
@@ -31,15 +32,19 @@ namespace WebLabs.Controllers
         {
             
 			var dishesFiltered = _context.Dish.Where(d => !group.HasValue || d.DishGroupId == group.Value);
-			// Поместить список групп во ViewData
-			//ViewData["Groups"] = _context.DishGroup;
-
-			//var dishesFiltered = _dishes.Where(d => !group.HasValue || d.DishGroupId == group.Value);
             // Поместить список групп во ViewData
-            ViewData["Groups"] = _dishGroups;
+            //ViewData["Groups"] = _context.DishGroup;
+
+            //var dishesFilteredd = _dishes.Where(d => !group.HasValue || d.DishGroupId == group.Value);
+            // Поместить список групп во ViewData
+            //var l = _context.DishGroup.Where(d => true);
+            //var k = _dishGroups;
+            ViewData["Groups"] = _context.DishGroup.Where(d=>true);//_dishGroups;
             // Получить id текущей группы и поместить в TempData
             ViewData["CurrentGroup"] = group ?? 0;
-			return View(ListViewModel<Dish>.GetModel(dishesFiltered, pageNo,_pageSize));
+
+            ViewData["DishGroupId"] = new SelectList(_context.DishGroup, "DishGroupId", "GroupName");
+            return View(ListViewModel<Dish>.GetModel(dishesFiltered, pageNo,_pageSize));
 
 			/*var model = ListViewModel<Dish>.GetModel(dishesFiltered, pageNo,
 _pageSize);
@@ -79,7 +84,7 @@ return View(model);*/
             {
             new Dish {DishId = 1, DishName="Суп-харчо",
             Description="Очень острый, невкусный",
-            Calories =200, DishGroupId=3, Image="Суп.jfif" },
+            Calories =200, DishGroupId=3, Image="Суп.jpg" },
             new Dish { DishId = 2, DishName="Борщ",
             Description="Много сала, без сметаны",
             Calories =330, DishGroupId=3, Image="Борщ.jpg" },

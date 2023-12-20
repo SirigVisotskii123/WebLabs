@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Menu";
-    var categories = ViewData["Groups"] as List<DishGroup>;
+    var categories = ViewData["Groups"] as IQueryable<DishGroup>;
     int currentGroup = (int)ViewData["CurrentGroup"];
     var text = currentGroup != 0 ? categories.FirstOrDefault(g => g.DishGroupId == currentGroup).GroupName : "Все";
 }
