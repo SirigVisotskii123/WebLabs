@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using WebLabs.DAL.Entities;
 using WebLabs.DAL.Data;
 using WebLabs.Services;
+using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Core.Types;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,6 +47,16 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 //builder.Services.AddScoped<SignInManager<IdentityUser>, SignInManager<IdentityUser>>();
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(opt =>
+{
+    opt.Cookie.HttpOnly = true;
+    opt.Cookie.IsEssential = true;
+});
+builder.Services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+//builder.Services.AddScoped;
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -65,6 +77,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
+app.UseSession();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -72,5 +86,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages(); 
 await DbInitializer.SetupDb(app);
+
+
 
 app.Run();
