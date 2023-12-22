@@ -10,18 +10,19 @@ namespace WebLabs.Controllers
     {
         private ApplicationDbContext _context;
         private string cartKey = "cart";
-        private Cart _cart;
-        public CartController(ApplicationDbContext context, Cart cart)
+        private ICart _cart;
+        public CartController(ApplicationDbContext context, ICart cart)
         {
             _context = context;
-            //_cart = cart;
+            _cart = cart;
         }
         public IActionResult Index()
         {
-            // _cart = HttpContext.Session.Get<Cart>(cartKey);
-            //return View(_cart.Items.Values);
-            return View();
+             _cart = HttpContext.Session.Get<Cart>(cartKey);
+            return View(_cart.Items.Values);
+            //return View();
         }
+
         [Authorize]
         public IActionResult Add(int id, string returnUrl)
         {
@@ -30,7 +31,7 @@ namespace WebLabs.Controllers
             if (item != null)
             {
                 _cart.AddToCart(item);
-                HttpContext.Session.Set<Cart>(cartKey, _cart);
+                HttpContext.Session.Set<Cart>(cartKey, (Cart)_cart);
             }
             return Redirect(returnUrl);
         }

@@ -5,6 +5,7 @@ using WebLabs.DAL.Data;
 using WebLabs.Services;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Core.Types;
+using WebLabs.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +37,8 @@ builder.Services.AddIdentityCore<ApplicationUser>();
 //    .AddEntityFrameworkStores<ApplicationDbContext>();
 //builder.Services.AddControllersWithViews();
 
+
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
@@ -56,6 +59,10 @@ builder.Services.AddSession(opt =>
 builder.Services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
 //builder.Services.AddScoped;
+builder.Services.AddScoped<Cart>(sp => CartService.GetCart(sp));
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddSingleton<ICart,Cart>();
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 

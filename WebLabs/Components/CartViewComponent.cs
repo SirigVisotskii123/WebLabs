@@ -1,12 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebLabs.Extensions;
+using WebLabs.Models;
 
 namespace WebLabs.Components
 {
     public class CartViewComponent:ViewComponent
     {
-        public IViewComponentResult Invoke()
+		private Cart _cart;
+		public CartViewComponent(Cart cart)
+		{
+			_cart = cart;
+		}
+		public IViewComponentResult Invoke()
         {
-            return View();
+			//var cart = HttpContext.Session.Get<Cart>("cart");
+			return View(_cart);
+			//return View();
         }
     }
 }

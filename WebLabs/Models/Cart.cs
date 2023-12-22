@@ -2,10 +2,18 @@
 
 namespace WebLabs.Models
 {
-    public class Cart
+    public interface ICart
     {
-        public Dictionary<int, CartItem> Items { get; set; }
-        public Cart()
+		public Dictionary<int, CartItem> Items { get; set; }
+        public void AddToCart(Dish dish);
+        public void RemoveFromCart(int id);
+	}
+    public class Cart:ICart
+    {
+		public Dictionary<int, CartItem> Items { get; set; }
+
+		//public Dictionary<int, CartItem> Items { get; set; }
+		public Cart()
         {
             Items = new Dictionary<int, CartItem>();
         }
@@ -30,11 +38,13 @@ namespace WebLabs.Models
                 item.Value.Dish.Calories);
             }
         }
-        /// <summary>
-        /// Добавление в корзину
-        /// </summary>
-        /// <param name="dish">добавляемый объект</param>
-        public void AddToCart(Dish dish)
+
+		
+		/// <summary>
+		/// Добавление в корзину
+		/// </summary>
+		/// <param name="dish">добавляемый объект</param>
+		public virtual void AddToCart(Dish dish)
         {
             // если объект есть в корзине
             // то увеличить количество
@@ -52,14 +62,14 @@ namespace WebLabs.Models
         /// Удалить объект из корзины
         /// </summary>
         /// <param name="id">id удаляемого объекта</param>
-        public void RemoveFromCart(int id)
+        public virtual void RemoveFromCart(int id)
         {
             Items.Remove(id);
         }
         /// <summary>
         /// Очистить корзину
         /// </summary>
-        public void ClearAll()
+        public virtual void ClearAll()
         {
             Items.Clear();
         }
