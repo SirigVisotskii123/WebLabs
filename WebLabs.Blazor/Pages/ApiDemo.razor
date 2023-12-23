@@ -1,0 +1,54 @@
+﻿@page "/apidemo"
+@inject HttpClient Http
+
+@using WebLabs.Blazor.Data
+	<div class="container">
+	
+	</div>
+<p>api demo @Http.BaseAddress</p>
+
+
+@if (Dishes == null)
+{
+	<p>Загрузка ...</p>
+}
+else
+{
+	<div class="list-group">
+		@{
+			var i = 1;
+			foreach (var dish in Dishes)
+			{
+				<button type="button" class="list-group-item list-groupitem-action">
+					@(i++) - @dish.DishName
+				</button>
+			}
+			<p>else else</p>
+		}
+	</div>
+}
+
+
+@code {
+    // [Parameter]
+    // public IEnumerable<ListViewModel> dishes { get; set; }
+    string apiBaseAddress = "https://localhost:7147/Api/Dishes";
+	
+    //HttpClient clientFactory;
+    protected override async Task OnInitializedAsync()
+    {
+        //Http.BaseAddress;
+        //Http.Json
+		Dishes = await Http.GetFromJsonAsync<IEnumerable<ListViewModel>>(apiBaseAddress);//"sample-data/json_json.json");
+    }
+
+
+
+	[Parameter]
+	public IEnumerable<ListViewModel>? Dishes { get; set; }
+	[Parameter]
+	public EventCallback<IEnumerable<ListViewModel>> DishesChanged
+	{
+		get; set;
+	}
+}

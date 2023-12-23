@@ -1,0 +1,47 @@
+[
+  {
+    "dishId": 1,
+    "dishName": "Суп-харчо",
+    "description": "Очень острый, невкусный",
+    "calories": 200,
+    "image": "Суп.jpg",
+    "dishGroupId": 3,
+    "group": null
+  },
+  {
+    "dishId": 2,
+    "dishName": "Борщ",
+    "description": "Много сала, без сметаны",
+    "calories": 330,
+    "image": "Борщ.jpg",
+    "dishGroupId": 3,
+    "group": null
+  },
+  {
+    "dishId": 3,
+    "dishName": "Котлета пожарская",
+    "description": "Хлеб - 80%, Морковь - 20%",
+    "calories": 635,
+    "image": "Котлета.jpg",
+    "dishGroupId": 4,
+    "group": null
+  },
+  {
+    "dishId": 4,
+    "dishName": "Макароны по-флотски",
+    "description": "С охотничьей колбаской",
+    "calories": 524,
+    "image": "Макароны.jpg",
+    "dishGroupId": 4,
+    "group": null
+  },
+  {
+    "dishId": 5,
+    "dishName": "Компот",
+    "description": "Быстро растворимый, 2 литра",
+    "calories": 180,
+    "image": "Компот.jpg",
+    "dishGroupId": 5,
+    "group": null
+  }
+]

@@ -1,0 +1,33 @@
+﻿@using WebLabs.Blazor.Data
+
+<h3>DishesList</h3>
+@if (Dishes == null)
+{
+	<p>Загрузка ...</p>
+}
+else
+{ 
+	<div class="list-group">
+	@{
+		var i = 1;
+		foreach (var dish in Dishes)
+		{
+			<button type="button" class="list-group-item list-groupitem-action">
+			@(i++) - @dish.DishName
+			</button>
+		}
+		<p>else else</p>
+	}
+	</div>	
+}
+<p>else after</p>
+
+@code {
+	[Parameter]
+	public IEnumerable<ListViewModel> Dishes { get; set; }
+	[Parameter]
+	public EventCallback<IEnumerable<ListViewModel>> DishesChanged
+	{
+		get; set;
+	}
+}

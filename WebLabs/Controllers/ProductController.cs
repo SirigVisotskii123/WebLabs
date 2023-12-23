@@ -14,11 +14,13 @@ namespace WebLabs.Controllers
         List<DishGroup> _dishGroups;
 
         int _pageSize;
-
-		public ProductController(ApplicationDbContext context)
+		private readonly ILogger<ProductController> _logger;
+		public ProductController(ApplicationDbContext context,
+            ILogger<ProductController> logger)
 		{
 			_pageSize = 3;
 			_context = context;
+            _logger = logger;
 			//SetupData();
 		}
 		//public ProductController()
@@ -31,6 +33,7 @@ namespace WebLabs.Controllers
 		public IActionResult Index(int? group, int pageNo =1)
         {
             
+			
 			var dishesFiltered = _context.Dish.Where(d => !group.HasValue || d.DishGroupId == group.Value);
             // Поместить список групп во ViewData
             //ViewData["Groups"] = _context.DishGroup;
@@ -43,7 +46,11 @@ namespace WebLabs.Controllers
             // Получить id текущей группы и поместить в TempData
             ViewData["CurrentGroup"] = group ?? 0;
 
-            ViewData["DishGroupId"] = new SelectList(_context.DishGroup, "DishGroupId", "GroupName");
+
+			//_logger.LogInformation($"info: group={group}, page={pageNo}");
+
+
+			ViewData["DishGroupId"] = new SelectList(_context.DishGroup, "DishGroupId", "GroupName");
             return View(ListViewModel<Dish>.GetModel(dishesFiltered, pageNo,_pageSize));
 
 			/*var model = ListViewModel<Dish>.GetModel(dishesFiltered, pageNo,
