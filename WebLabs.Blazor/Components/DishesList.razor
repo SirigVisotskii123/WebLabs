@@ -6,28 +6,40 @@
 	<p>Загрузка ...</p>
 }
 else
-{ 
+{
 	<div class="list-group">
-	@{
-		var i = 1;
-		foreach (var dish in Dishes)
-		{
-			<button type="button" class="list-group-item list-groupitem-action">
-			@(i++) - @dish.DishName
-			</button>
+		@{
+			var i = 1;
+			foreach (var dish in Dishes)
+			{
+				<button type="button" class="list-group-item list-group-item-action"
+						@onclick="@(e => Selected(e, dish.DishId))">
+					@(SelectedId == dish.DishId ? "active" : "")
+					@(i++) - @dish.DishName
+
+				</button>
+			}
 		}
-		<p>else else</p>
-	}
-	</div>	
+	</div>
 }
-<p>else after</p>
 
 @code {
 	[Parameter]
-	public IEnumerable<ListViewModel> Dishes { get; set; }
+	public IEnumerable<ListViewModel>? Dishes { get; set; }
 	[Parameter]
 	public EventCallback<IEnumerable<ListViewModel>> DishesChanged
 	{
 		get; set;
+	}
+
+	public int SelectedId = 0;
+
+	[Parameter]
+	public EventCallback<int> SelectedObjectChanged { get; set; }
+
+	private async Task Selected(MouseEventArgs e, int id)
+	{
+		SelectedId = id;
+		SelectedObjectChanged.InvokeAsync(id);
 	}
 }

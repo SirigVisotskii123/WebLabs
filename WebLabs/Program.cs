@@ -89,6 +89,10 @@ internal class Program
         //	lp.AddFilter("Microsoft", LogLevel.None);
         //}
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("PolicyName", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+        });
 
         var app = builder.Build();
 
@@ -137,8 +141,8 @@ internal class Program
         app.UseFileLogging();
 
 
-
-
+        app.UseCors("PolicyName");
+       
 
 
         app.Run();
